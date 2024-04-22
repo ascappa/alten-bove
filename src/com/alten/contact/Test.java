@@ -1,4 +1,4 @@
-package alten.contact;
+package com.alten.contact;
 
 import java.io.IOException;
 import java.util.List;

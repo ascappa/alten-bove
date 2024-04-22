@@ -1,4 +1,4 @@
-package alten.contact;
+package com.alten.contact;
 
 import java.io.*;
 import java.util.*;

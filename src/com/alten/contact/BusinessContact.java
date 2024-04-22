@@ -1,4 +1,4 @@
-package alten.contact;
+package com.alten.contact;
 
 
 public class BusinessContact extends Contact {

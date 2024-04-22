@@ -1,4 +1,4 @@
-package alten.date;
+package com.alten.date;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,6 +10,10 @@ public class TaskScheduler {
 
     public TaskScheduler(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public TaskScheduler() {
+        this.tasks = new ArrayList<>();
     }
 
     public List<Task> getTasksByDeadline(LocalDate date) {
@@ -24,5 +28,9 @@ public class TaskScheduler {
     }
     public void addTask(Task task) {
         tasks.add(task);
+    }
+
+    public Task getTask(int idx) {
+        return tasks.get(idx);
     }
 }

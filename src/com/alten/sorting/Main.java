@@ -1,4 +1,4 @@
-package alten.sorting;
+package com.alten.sorting;
 
 import java.util.Arrays;
 

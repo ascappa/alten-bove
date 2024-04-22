@@ -1,4 +1,4 @@
-package alten.date;
+package com.alten.date;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package alten.mappe;
+package com.alten.mappe;
 
 import java.util.*;
 
