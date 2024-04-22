@@ -26,6 +26,7 @@ public class Lista<T> {
     public void remove(T element) {
         lista.remove(element);
     }
+
     public T remove(int idx) {
         return lista.remove(idx);
     }

@@ -12,7 +12,6 @@ public class Test {
         lista.remove(2);
         System.out.println("La lista " + lista + " ha lunghezza " + lista.size());
         System.out.printf("L'elemento all'indice %d è %s ", 3, lista.get(3));
-        System.out.println("Ho aggiunto l'elemento " + lista.add(58));
 
     }
 }
