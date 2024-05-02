@@ -1,26 +1,20 @@
 package com.alten.pawtropolis.game;
 
 import com.alten.pawtropolis.animali.Animal;
-import com.alten.pawtropolis.animali.AnimalFactory;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Room {
     private String roomName;
-    private List<Item> items = new ArrayList<>();
+    private List<Item> itemsInRoom = new ArrayList<>();
     private Animal animalInRoom;
-    private Random random = new Random();
 
 
-    public Room(String roomName) {
-        this.roomName = roomName;
-        String animalString = Game.getAvailableAnimals().get(random.nextInt(Game.getAvailableAnimals().size()));
-        animalInRoom = AnimalFactory.getAnimal(animalString.toLowerCase());
-        for (int i = 0; i < 4; i++) {
-            items.add(new Item(Game.getAvailableItems().get(random.nextInt(Game.getAvailableItems().size())).getName()));
+    public Room() {
+        animalInRoom = Animal.getRandomAnimal();
+        for (int i = 0; i < 2; i++) {
+            itemsInRoom.add(Item.getRandomItem());
         }
     }
 
@@ -32,12 +26,12 @@ public class Room {
         this.roomName = roomName;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<Item> getItemsInRoom() {
+        return itemsInRoom;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setItemsInRoom(List<Item> itemsInRoom) {
+        this.itemsInRoom = itemsInRoom;
     }
 
     public Animal getAnimalInRoom() {
@@ -46,5 +40,14 @@ public class Room {
 
     public void setAnimalInRoom(Animal animalInRoom) {
         this.animalInRoom = animalInRoom;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "roomName='" + roomName + '\'' +
+                ", itemsInRoom=" + itemsInRoom +
+                ", animalInRoom=" + animalInRoom +
+                '}';
     }
 }

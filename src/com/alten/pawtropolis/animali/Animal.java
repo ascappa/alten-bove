@@ -4,8 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class Animal {
+    public static final List<String> availableNames = new ArrayList<>(List.of("Mufasa", "Pumba", "Annibale", "Esmeralda", "Artemide", "Geppetto", "Michelangelo", "Scar", "Skipper"));
+    private static List<String> availableSpecies = new ArrayList<>(List.of("aquila", "leone", "tigre"));
     private String nome;
     private String ciboPreferito;
     private int eta;
@@ -14,6 +17,7 @@ public class Animal {
     private double altezza;
     // {"tigre": [tigre1, tigre2, ...], "aquila": [aquila1, aquila2, ...]}
     protected static HashMap<String, List<Animal>> animali = new HashMap<>();
+    private static Random random = new Random();
 
     public Animal(String nome, String ciboPreferito, int eta, LocalDate dataArrivo, double peso, double altezza) {
         this.nome = nome;
@@ -28,6 +32,9 @@ public class Animal {
         animali.get(classeCorrente).add(this);
     }
 
+    public static Animal getRandomAnimal() {
+        return AnimalFactory.getAnimal(availableSpecies.get(random.nextInt(availableSpecies.size())));
+    }
 
     public static Animal getPiuAlto(Specie specie) {
         var lista = animali.get(String.valueOf(specie));
