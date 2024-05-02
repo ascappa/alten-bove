@@ -1,6 +1,5 @@
-package com.alten.animali;
+package com.alten.pawtropolis.animali;
 
-import java.lang.invoke.MethodHandles;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,10 @@
-package com.alten.animali;
+package com.alten.pawtropolis.animali;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class Aquila extends Animale {
+public class Aquila extends Animal {
     private double aperturaAlare;
     private static List<Aquila> aquile = new ArrayList<>();
 

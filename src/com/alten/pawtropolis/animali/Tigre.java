@@ -1,4 +1,4 @@
-package com.alten.animali;
+package com.alten.pawtropolis.animali;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

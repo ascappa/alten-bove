@@ -1,22 +1,21 @@
-package com.alten.animali;
+package com.alten.pawtropolis.animali;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Animale {
+public class Animal {
     private String nome;
     private String ciboPreferito;
     private int eta;
     private LocalDate dataArrivo;
     private double peso;
     private double altezza;
+    // {"tigre": [tigre1, tigre2, ...], "aquila": [aquila1, aquila2, ...]}
+    protected static HashMap<String, List<Animal>> animali = new HashMap<>();
 
-
-    protected static HashMap<String, List<Animale>> animali = new HashMap<>();
-
-    public Animale(String nome, String ciboPreferito, int eta, LocalDate dataArrivo, double peso, double altezza) {
+    public Animal(String nome, String ciboPreferito, int eta, LocalDate dataArrivo, double peso, double altezza) {
         this.nome = nome;
         this.ciboPreferito = ciboPreferito;
         this.eta = eta;
@@ -25,14 +24,37 @@ public class Animale {
         this.altezza = altezza;
         System.out.println(this.getClass().getSimpleName());
         String classeCorrente = this.getClass().getSimpleName().toUpperCase();
-        Animale.animali.computeIfAbsent(classeCorrente, _ -> new ArrayList<>());
-        Animale.animali.get(classeCorrente).add(this);
+        animali.computeIfAbsent(classeCorrente, _ -> new ArrayList<>());
+        animali.get(classeCorrente).add(this);
     }
 
-    public static Animale getPiuPesante(Specie specie) {
+
+    public static Animal getPiuAlto(Specie specie) {
         var lista = animali.get(String.valueOf(specie));
-        Animale target = lista.getFirst();
-        for (Animale a : lista) {
+        Animal target = lista.getFirst();
+        for (Animal a : lista) {
+            if (a.getAltezza() > target.getAltezza()) {
+                target = a;
+            }
+        }
+        return target;
+    }
+
+    public static Animal getPiuBasso(Specie specie) {
+        var lista = animali.get(String.valueOf(specie));
+        Animal target = lista.getFirst();
+        for (Animal a : lista) {
+            if (a.getAltezza() < target.getAltezza()) {
+                target = a;
+            }
+        }
+        return target;
+    }
+
+    public static Animal getPiuPesante(Specie specie) {
+        var lista = animali.get(String.valueOf(specie));
+        Animal target = lista.getFirst();
+        for (Animal a : lista) {
             if (a.getPeso() > target.getPeso()) {
                 target = a;
             }
@@ -40,16 +62,17 @@ public class Animale {
         return target;
     }
 
-    public static Animale getPiuBasso(Specie specie) {
+    public static Animal getPiuLeggero(Specie specie) {
         var lista = animali.get(String.valueOf(specie));
-        Animale target = lista.getFirst();
-        for (Animale a : lista) {
-            if (a.getAltezza() > target.getPeso()) {
+        Animal target = lista.getFirst();
+        for (Animal a : lista) {
+            if (a.getPeso() < target.getPeso()) {
                 target = a;
             }
         }
         return target;
     }
+
 
     public String getNome() {
         return nome;

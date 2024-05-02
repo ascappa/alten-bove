@@ -1,4 +1,4 @@
-package com.alten.animali;
+package com.alten.pawtropolis.animali;
 
 public enum Specie {
     TIGRE,

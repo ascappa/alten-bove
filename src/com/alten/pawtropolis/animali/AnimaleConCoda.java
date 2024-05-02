@@ -1,11 +1,10 @@
-package com.alten.animali;
+package com.alten.pawtropolis.animali;
 
-import java.lang.reflect.AnnotatedArrayType;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnimaleConCoda extends Animale {
+public class AnimaleConCoda extends Animal {
     private double lunghezzaCoda;
 
     private static List<AnimaleConCoda> animaliConCoda = new ArrayList<>();
