@@ -11,6 +11,10 @@ public class Aquila extends Animal {
     public Aquila(String nome, String ciboPreferito, int eta, LocalDate dataArrivo, double peso, double altezza, double aperturaAlare) {
         super(nome, ciboPreferito, eta, dataArrivo, peso, altezza);
         this.aperturaAlare = aperturaAlare;
+        lifepoints = 2;
+        damageDealt = 0.5;
+        chanceToDodge = 0.2;
+        chanceToAttackFirst = 0.6;
     }
 
     public double getAperturaAlare() {
@@ -20,6 +24,7 @@ public class Aquila extends Animal {
     public void setAperturaAlare(double aperturaAlare) {
         this.aperturaAlare = aperturaAlare;
     }
+
 
     public static Aquila getConAperturaAlarePiuGrande() {
         Aquila target = aquile.getFirst();

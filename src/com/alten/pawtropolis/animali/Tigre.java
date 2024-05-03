@@ -10,6 +10,10 @@ public class Tigre extends AnimaleConCoda {
     public Tigre(String nome, String ciboPreferito, int eta, LocalDate dataArrivo, double peso, double altezza, double lunghezzaCoda) {
         super(nome, ciboPreferito, eta, dataArrivo, peso, altezza, lunghezzaCoda);
         tigri.add(this);
+        lifepoints = 3;
+        damageDealt = 1;
+        chanceToDodge = 0.15;
+        chanceToAttackFirst = 0.4;
     }
 
     public static List<Tigre> getTigri() {

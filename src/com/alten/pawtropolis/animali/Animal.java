@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Random;
 
 public class Animal {
-    public static final List<String> availableNames = new ArrayList<>(List.of("Mufasa", "Pumba", "Annibale", "Esmeralda", "Artemide", "Geppetto", "Michelangelo", "Scar", "Skipper"));
+    public static final List<String> availableNames = new ArrayList<>(List.of("Mufasa", "Pumba", "Annibale",
+            "Esmeralda", "Artemide", "Geppetto", "Michelangelo", "Scar", "Skipper"));
     private static List<String> availableSpecies = new ArrayList<>(List.of("aquila", "leone", "tigre"));
+    public static List<String> availableFoods = List.of("carne", "caramelle", "patatine", "topi", "zebra");
     private String nome;
     private String ciboPreferito;
     private int eta;
@@ -18,6 +20,10 @@ public class Animal {
     // {"tigre": [tigre1, tigre2, ...], "aquila": [aquila1, aquila2, ...]}
     protected static HashMap<String, List<Animal>> animali = new HashMap<>();
     private static Random random = new Random();
+    protected double lifepoints;
+    protected double damageDealt;
+    protected double chanceToDodge;
+    protected double chanceToAttackFirst;
 
     public Animal(String nome, String ciboPreferito, int eta, LocalDate dataArrivo, double peso, double altezza) {
         this.nome = nome;
@@ -26,14 +32,18 @@ public class Animal {
         this.dataArrivo = dataArrivo;
         this.peso = peso;
         this.altezza = altezza;
-        System.out.println(this.getClass().getSimpleName());
         String classeCorrente = this.getClass().getSimpleName().toUpperCase();
         animali.computeIfAbsent(classeCorrente, _ -> new ArrayList<>());
         animali.get(classeCorrente).add(this);
     }
 
+
     public static Animal getRandomAnimal() {
-        return AnimalFactory.getAnimal(availableSpecies.get(random.nextInt(availableSpecies.size())));
+        return AnimalFactory.getAnimal(availableSpecies.get(random.nextInt(availableSpecies.size())),
+                availableNames.get(random.nextInt(availableNames.size())),
+                availableFoods.get(random.nextInt(availableFoods.size())), random.nextInt(40), LocalDate.of(2019,
+                        random.nextInt(12) + 1, random.nextInt(20) + 1), random.nextDouble(30), random.nextDouble(30),
+                random.nextDouble(30));
     }
 
     public static Animal getPiuAlto(Specie specie) {
@@ -56,6 +66,14 @@ public class Animal {
             }
         }
         return target;
+    }
+
+    public boolean hasDodged() {
+        return Math.random() < chanceToDodge;
+    }
+
+    public boolean hasAttackedFirst() {
+        return Math.random() < chanceToAttackFirst;
     }
 
     public static Animal getPiuPesante(Specie specie) {
@@ -127,6 +145,22 @@ public class Animal {
 
     public void setAltezza(double altezza) {
         this.altezza = altezza;
+    }
+
+    public double getLifepoints() {
+        return lifepoints;
+    }
+
+    public void setLifepoints(double lifepoints) {
+        this.lifepoints = lifepoints;
+    }
+
+    public double getDamageDealt() {
+        return damageDealt;
+    }
+
+    public void setDamageDealt(double damageDealt) {
+        this.damageDealt = damageDealt;
     }
 
     @Override
