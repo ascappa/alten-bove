@@ -6,11 +6,15 @@ import java.util.List;
 
 public class Leone extends AnimaleConCoda {
     public static List<Leone> leoni = new ArrayList<>();
-
+    private static final int DEFAULT_LIFE_POINTS = 4;
 
     public Leone(String nome, String ciboPreferito, int eta, LocalDate dataArrivo, double peso, double altezza, double lunghezzaCoda) {
         super(nome, ciboPreferito, eta, dataArrivo, peso, altezza, lunghezzaCoda);
         leoni.add(this);
+        lifepoints = DEFAULT_LIFE_POINTS;
+        damageDealt = 1.5;
+        chanceToDodge = 0;
+        chanceToAttackFirst = 0.2;
     }
 
     public static List<Leone> getLeoni() {
