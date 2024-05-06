@@ -1,0 +1,36 @@
+
+]
+java:S1854";Remove this useless assignment to local variable "aquila2".(ì¢Ôäúÿÿÿÿ8ğŸ ñò1
+]
+java:S1854";Remove this useless assignment to local variable "aquila1".(ñ²èúÿÿÿÿ8ğŸ ñò1
+\
+java:S1854
+":Remove this useless assignment to local variable "leone4".(¤çÖºúÿÿÿÿ8ğŸ ñò1
+\
+java:S1854	":Remove this useless assignment to local variable "leone3".(ÉôÙÄúÿÿÿÿ8ğŸ ñò1
+W
+java:S1854":Remove this useless assignment to local variable "leone2".(‚ã¤ˆ8ğŸ ñò1
+\
+java:S1854":Remove this useless assignment to local variable "leone1".(šÎü£ÿÿÿÿÿ8ğŸ ñò1
+M
+java:S1481"+Remove this unused "leone1" local variable.(šÎü£ÿÿÿÿÿ8ğŸ ñò1
+H
+java:S1481"+Remove this unused "leone2" local variable.(‚ã¤ˆ8ğŸ ñò1
+M
+java:S1481	"+Remove this unused "leone3" local variable.(ÉôÙÄúÿÿÿÿ8ğŸ ñò1
+M
+java:S1481
+"+Remove this unused "leone4" local variable.(¤çÖºúÿÿÿÿ8ğŸ ñò1
+N
+java:S1481",Remove this unused "aquila1" local variable.(ñ²èúÿÿÿÿ8ğŸ ñò1
+N
+java:S1481",Remove this unused "aquila2" local variable.(ì¢Ôäúÿÿÿÿ8€  ñò1
+L	java:S106"+Replace this use of System.out by a logger.(Èğüúûÿÿÿÿ8€  ñò1
+L	java:S106"+Replace this use of System.out by a logger.(úÙĞ¼ıÿÿÿÿ8€  ñò1
+F	java:S106"+Replace this use of System.out by a logger.(›ãÀ[8€  ñò1
+L	java:S106"+Replace this use of System.out by a logger.(Ë¥õ‘şÿÿÿÿ8€  ñò1
+L	java:S106"+Replace this use of System.out by a logger.(–£ü¯ùÿÿÿÿ8€  ñò1
+G	java:S106"+Replace this use of System.out by a logger.(«¯‡8€  ñò1
+L	java:S106"+Replace this use of System.out by a logger.(²ÌÇøÿÿÿÿ8€  ñò1
+L	java:S106"+Replace this use of System.out by a logger.( †öşÿÿÿÿ8€  ñò1
+L	java:S106"+Replace this use of System.out by a logger.(ú°˜ˆûÿÿÿÿ8€  ñò1
