@@ -30,6 +30,9 @@ public class Game {
     private static Bag bag = null;
     private static int x = 3;
     private static int y = 2;
+    private static String command;
+    private static boolean isCombatOver = true;
+    private static Player player = null;
 /*
 [
 [5, 2, 3, 2],
@@ -44,7 +47,7 @@ public class Game {
         bag = Bag.getInstance();
         System.out.println(bag.getItems());
         System.out.println();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 4; i++) {
             List<Room> rowOfRooms = new ArrayList<>();
             for (int j = 0; j < 4; j++) {
                 rowOfRooms.add(new Room(j, i));
@@ -61,36 +64,47 @@ public class Game {
         System.out.println("Oh prode guerriero, qual è il tuo nome? ");
         Scanner scanner = new Scanner(System.in);
         String nome = scanner.nextLine();
-        Player player = new Player(nome);
+        player = new Player(nome);
         System.out.println("Benvenuto nel dungeon, " + ANSI_CYAN + nome + ANSI_RESET + "! Sei la nostra ultima " +
                 "speranza...");
         printRooms();
-        String command;
+        printCurrentRoomInfo();
+        combatti();
         do {
-            command = scanner.nextLine();
-            int previousX = x;
-            int previousY = y;
-            switch (command) {
-                case "nord":
-                    if (y > 0) y--;
-                    break;
-                case "ovest":
-                    if (x > 0) x--;
-                    break;
-                case "est":
-                    if (x < 3) x++;
-                    break;
-                case "sud":
-                    if (y < 3) y++;
-                    break;
-                default:
-                    System.out.println("Direzione non valida!");
-                    break;
-            }
-            rooms.get(y).get(x).setHasBeenVisited(true);
-            printRooms();
-            if (previousX == x && previousY == y) System.out.println("Non potevi andare in quella direzione");
-        } while (!command.equals("bye"));
+
+            do {
+                System.out.println("Cosa farai adesso?");
+                command = getCommand();
+            } while (!executeCommand(command));
+        } while (!command.equals("exit"));
+    }
+
+    private static void moveToRoom(String command) {
+        isCombatOver = true;
+        int previousX = x;
+        int previousY = y;
+        switch (command) {
+            case "nord":
+                if (y > 0) y--;
+                break;
+            case "ovest":
+                if (x > 0) x--;
+                break;
+            case "est":
+                if (x < 3) x++;
+                break;
+            case "sud":
+                if (y < 3) y++;
+                break;
+            default:
+                System.out.println("Direzione non valida!");
+                break;
+        }
+        rooms.get(y).get(x).setHasBeenVisited(true);
+        printRooms();
+        printCurrentRoomInfo();
+        if (previousX == x && previousY == y) System.out.println("Non potevi andare in quella direzione");
+        combatti();
     }
 
     private static void printRooms() {
@@ -115,31 +129,119 @@ public class Game {
             System.out.println();
             System.out.println("-".repeat(rowOfRooms.size() * 4));
         }
-        System.out.printf("%sNella stanza%s c'è %s\nSpecie: %s\nCibo preferito: %s\n", ANSI_BLUE, ANSI_RESET,
-                currentAnimal.getNome(), currentAnimal.getClass().getSimpleName(), currentAnimal.getCiboPreferito());
-        if (currentAnimal.hasAttackedFirst()) {
-            System.out.println(currentAnimal.getNome() + " attacca per primo!");
-            System.out.println("Subisci " + currentAnimal.getDamageDealt() + " danni");
-            System.out.println("Ora tocca a te. Scegli cosa fare: ");
-            showMenu();
-        } else {
-            System.out.println("Agisci per primo! Scegli cosa fare: ");
-            showMenu();
-            System.out.println(currentAnimal.getNome() + " contrattacca!");
-            System.out.println("Subisci " + currentAnimal.getDamageDealt() + " danni");
-        }
+
 
     }
 
-    public static void showMenu(){
+    public static void showMenu() {
         System.out.println("1. attacca");
         for (int i = 0; i < bag.getItems().size(); i++) {
             System.out.println((i + 2) + ". " + bag.getItems().get(i).getName());
         }
     }
 
+    public static String getCommand() {
+        Scanner scanner = new Scanner(System.in);
+        String fullCommand;
+        fullCommand = scanner.nextLine();
+        return fullCommand;
+    }
+
+    public static void printCurrentRoomInfo() {
+        Animal currentAnimal = getCurrentRoom().getAnimalInRoom();
+        if (currentAnimal.getLifepoints() == 0) {
+            System.out.println("Qui giace " + currentAnimal.getNome());
+            return;
+        }
+        System.out.printf("%sNella stanza%s c'è %s\nSpecie: %s\nCibo preferito: %s\n", ANSI_BLUE, ANSI_RESET,
+                currentAnimal.getNome(), currentAnimal.getClass().getSimpleName(), currentAnimal.getCiboPreferito());
+
+    }
+
+    public static Animal getCurrentAnimal() {
+        return getCurrentRoom().getAnimalInRoom();
+    }
+
+    public static boolean executeCommand(String command) {
+
+        boolean isValidCommand = true;
+
+        String[] commandParts = command.split(" ", 2);
+        switch (commandParts[0]) {
+            case "go":
+                moveToRoom(commandParts[1]);
+                break;
+            case "look":
+                printCurrentRoomInfo();
+                break;
+            case "bag":
+                System.out.println(bag.getItems());
+                break;
+            case "attack":
+                if (getCurrentAnimal().getLifepoints() == 0) {
+                    System.out.println(getCurrentAnimal().getNome() + " è già morto");
+                } else {
+                    getCurrentAnimal().decreaseLifepoints();
+                    System.out.println(getCurrentAnimal().getNome() + " subisce 1 danno.");
+                }
+                break;
+            default:
+                System.out.println("that wasn't a valid command!");
+                isValidCommand = false;
+                break;
+        }
+        return isValidCommand;
+
+    }
+
     public static Room getCurrentRoom() {
         return rooms.get(y).get(x);
     }
 
+    public static void combatti() {
+        if (getCurrentAnimal().getLifepoints() == 0) {
+            System.out.println("Ora muoviti in un'altra stanza");
+            return;
+        }
+        Animal currentAnimal = getCurrentAnimal();
+        isCombatOver = false;
+        do {
+            System.out.println(getCurrentAnimal().getNome() + " ha " + getCurrentAnimal().getLifepoints() + " " +
+                    "lifepoints!");
+            if (currentAnimal.hasAttackedFirst()) {
+                System.out.println(currentAnimal.getNome() + " attacca per primo!");
+                player.decrementLifepoints(getCurrentAnimal().getDamageDealt());
+                System.out.println("Subisci " + currentAnimal.getDamageDealt() + " danni");
+
+                do {
+                    System.out.println("Ora tocca a te. Scegli cosa fare: ");
+                    command = getCommand();
+                    executeCommand(command);
+                    if (isCombatOver) return;
+                } while (!command.split(" ")[0].equals("attack"));
+                if (currentAnimal.getLifepoints() == 0) {
+                    System.out.println("Hai sconfitto " + currentAnimal.getNome());
+                    isCombatOver = true;
+                    return;
+                }
+            } else {
+                do {
+                    System.out.println("Agisci per primo! Scegli cosa fare: ");
+                    command = getCommand();
+                    executeCommand(command);
+                    if (isCombatOver) return;
+                } while (!command.split(" ")[0].equals("attack"));
+                if (currentAnimal.getLifepoints() == 0) {
+                    System.out.println("Hai sconfitto " + currentAnimal.getNome());
+                    return;
+                } else {
+                    System.out.println(currentAnimal.getNome() + " contrattacca!");
+                    player.decrementLifepoints(getCurrentAnimal().getDamageDealt());
+                    System.out.println("Subisci " + currentAnimal.getDamageDealt() + " danni");
+                }
+
+            }
+
+        } while (!isCombatOver);
+    }
 }

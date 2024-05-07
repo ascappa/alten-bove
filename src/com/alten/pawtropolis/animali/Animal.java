@@ -163,6 +163,10 @@ public class Animal {
         this.damageDealt = damageDealt;
     }
 
+    public void decreaseLifepoints() {
+        lifepoints--;
+    }
+
     @Override
     public String toString() {
         return "Animale{" +
