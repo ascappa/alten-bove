@@ -12,6 +12,8 @@ public class Room {
     private boolean hasBeenVisited = false;
     private int x;
     private int y;
+    private boolean isLocked = false;
+    private static int numberOfKeys = 3;
 
     public int getX() {
         return x;
@@ -34,6 +36,11 @@ public class Room {
         this.y = y;
         animalInRoom = Animal.getRandomAnimal();
         for (int i = 0; i < 2; i++) {
+            itemsInRoom.add(Item.getRandomItem());
+        }
+        if (Math.random() < 0.4) {
+            itemsInRoom.add(new Item("key", "apre una porta", 1, 1, 0, 0));
+        } else {
             itemsInRoom.add(Item.getRandomItem());
         }
     }
@@ -68,6 +75,18 @@ public class Room {
 
     public void setHasBeenVisited(boolean hasBeenVisited) {
         this.hasBeenVisited = hasBeenVisited;
+    }
+
+    public boolean isHasBeenVisited() {
+        return hasBeenVisited;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
     }
 
     @Override

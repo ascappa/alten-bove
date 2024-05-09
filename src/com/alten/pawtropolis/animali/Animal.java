@@ -167,6 +167,10 @@ public class Animal {
         lifepoints--;
     }
 
+    public void decreaseLifepoints(double amountToRemove) {
+        lifepoints -= amountToRemove;
+    }
+
     @Override
     public String toString() {
         return "Animale{" +

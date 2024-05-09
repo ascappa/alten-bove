@@ -20,7 +20,7 @@ public class Player {
         return lifepoints;
     }
 
-    public void setLifepoints(int lifepoints) {
+    public void setLifepoints(double lifepoints) {
         this.lifepoints = lifepoints;
     }
 

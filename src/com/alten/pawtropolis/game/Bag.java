@@ -9,7 +9,7 @@ public class Bag {
     private final List<Item> items = new ArrayList<>();
 
     private Bag() {
-        items.add(new Item("tirapugni"));
+
     }
 
     public static Bag getInstance() {
