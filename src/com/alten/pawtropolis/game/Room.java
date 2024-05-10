@@ -14,6 +14,7 @@ public class Room {
     private int y;
     private boolean isLocked = false;
     private static int numberOfKeys = 3;
+    private boolean hasKey = false;
 
     public int getX() {
         return x;
@@ -38,11 +39,22 @@ public class Room {
         for (int i = 0; i < 2; i++) {
             itemsInRoom.add(Item.getRandomItem());
         }
-        if (Math.random() < 0.4) {
+        if (Math.random() < 0.4 && numberOfKeys >= 0) {
             itemsInRoom.add(new Item("key", "apre una porta", 1, 1, 0, 0));
+            numberOfKeys--;
+            hasKey = true;
         } else {
             itemsInRoom.add(Item.getRandomItem());
         }
+    }
+//in giochi del genere è normale ave piu chiavi dei lucchetti
+    // sì però da quello che ho scritto in teoria il numero dovrebbe essere uguale
+    public boolean isHasKey() {
+        return hasKey;
+    }
+
+    public void setHasKey(boolean hasKey) {
+        this.hasKey = hasKey;
     }
 
     public String getRoomName() {

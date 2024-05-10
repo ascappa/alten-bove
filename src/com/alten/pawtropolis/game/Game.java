@@ -2,9 +2,7 @@ package com.alten.pawtropolis.game;
 
 import com.alten.pawtropolis.animali.Animal;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
     public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
@@ -35,6 +33,9 @@ public class Game {
     private static Player player = null;
     private static int numberOfLockedRooms = 0;
 
+    private static HashMap<String, String> animalEmojis = new HashMap<>(Map.of("leone", "🦁", "aquila", "🦅", "tigre"
+            , "🐯"));
+
 /*
 [
 [5, 2, 3, 2],
@@ -54,7 +55,7 @@ public class Game {
             List<Room> rowOfRooms = new ArrayList<>();
             for (int j = 0; j < 4; j++) {
                 Room room = new Room(j, i);
-                if (Math.random() < 0.4 && numberOfLockedRooms <= 3 && (j != x && i != y)) {
+                if (Math.random() < 0.4 && numberOfLockedRooms <= 2 && (j != x || i != y) && !room.isHasKey()) {
                     room.setLocked(true);
                     numberOfLockedRooms++;
                 }
@@ -112,6 +113,13 @@ public class Game {
                 System.out.println("Direzione non valida!");
                 break;
         }
+        if (rooms.get(y).get(x).isLocked()) {
+            System.out.println("non puoi muoverti in quella stanza!");
+            isCombatOver = false;
+            x = previousX;
+            y = previousY;
+            return false;
+        }
         if (previousX == x && previousY == y) {
             System.out.println("Non potevi andare in quella direzione");
             isCombatOver = false;
@@ -125,30 +133,38 @@ public class Game {
     }
 
     private static void printRooms() {
+        System.out.println();
+        int i = 0;
         for (var rowOfRooms : rooms) {
             for (Room room : rowOfRooms) {
-                if (room.isLocked()) {
-                    System.out.printf(" 🔒 |"
+                if (room.isHasKey()) {
+                    System.out.print(" 🗝️ ┃"
+                    );
+                } else if (room.isLocked()) {
+                    System.out.print(" \uD83D\uDD12 ┃"
                     );
                 } else if (room.getHasBeenVisited()) {
+                    String animalClass = room.getAnimalInRoom().getClass().getSimpleName().toLowerCase();
                     if (room.getY() == y && room.getX() == x) {
-                        System.out.printf("%s %s %s|",
-                                ANSI_YELLOW_BACKGROUND + ANSI_RED,
-                                room.getAnimalInRoom().getClass().getSimpleName().substring(0, 1).toUpperCase(),
+                        System.out.printf("%s %s %s┃",
+                                ANSI_PURPLE_BACKGROUND,
+                                animalEmojis.get(animalClass),
                                 ANSI_RESET);
                     } else {
-                        System.out.printf(" %s |",
-                                room.getAnimalInRoom().getClass().getSimpleName().substring(0, 1).toUpperCase()
+                        System.out.printf(" %s ┃",
+                                animalEmojis.get(animalClass)
                         );
                     }
                 } else {
-                    System.out.printf(" ? |");
+                    System.out.print(" ❓ ┃");
                 }
+
             }
             System.out.println();
-            System.out.println("-".repeat(rowOfRooms.size() * 4));
+            if (i != rooms.size() - 1) System.out.println("―".repeat(rowOfRooms.size() * 3 + 1));
+            i++;
         }
-
+        System.out.println();
 
     }
 
@@ -172,8 +188,9 @@ public class Game {
             System.out.println("Qui giace " + currentAnimal.getNome());
             return;
         }
-        System.out.printf("%sNella stanza%s c'è %s\nSpecie: %s\nCibo preferito: %s\n", ANSI_BLUE, ANSI_RESET,
-                currentAnimal.getNome(), currentAnimal.getClass().getSimpleName(), currentAnimal.getCiboPreferito());
+        System.out.printf("%sNella stanza c'è %s%s\nSpecie: %s\nCibo preferito: %s\n", ANSI_BLUE,
+                currentAnimal.getNome(), ANSI_RESET
+                , currentAnimal.getClass().getSimpleName(), currentAnimal.getCiboPreferito());
         System.out.printf("Se sconfiggi %s puoi scegliere 2 dei seguenti strumenti presenti nella stanza:\n",
                 getCurrentAnimal().getNome());
         printItemsInRoom();
