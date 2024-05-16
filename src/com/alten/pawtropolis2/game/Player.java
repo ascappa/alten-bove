@@ -1,11 +1,12 @@
-package com.alten.pawtropolis.game;
+package com.alten.pawtropolis2.game;
 
 public class Player {
     private String name;
     private double lifepoints = 50;
 
-    public Player(String name) {
+    public Player(String name, double lifepoints) {
         this.name = name;
+        this.lifepoints = lifepoints;
     }
 
     public String getName() {
@@ -24,7 +25,7 @@ public class Player {
         this.lifepoints = lifepoints;
     }
 
-    public void decrementLifepoints(double amountToDecrement) {
-        lifepoints -= amountToDecrement;
+    public void decreaseLP(double amount) {
+        lifepoints -= amount;
     }
 }

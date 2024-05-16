@@ -184,7 +184,7 @@ public class Game {
 
     public static void printCurrentRoomInfo() {
         Animal currentAnimal = getCurrentRoom().getAnimalInRoom();
-        if (currentAnimal.getLifepoints() == 0) {
+        if (currentAnimal.getLifepoints() <= 0) {
             System.out.println("Qui giace " + currentAnimal.getNome());
             return;
         }
@@ -229,7 +229,7 @@ public class Game {
                 break;
             case "get":
                 for (Item item : getCurrentRoom().getItemsInRoom()) {
-                    if (commandParts[1].equals(item.getName()) && getCurrentAnimal().getLifepoints() <= 0) {
+                    if (commandParts[1].trim().equals(item.getName()) && getCurrentAnimal().getLifepoints() <= 0) {
                         bag.getItems().add(item);
                         System.out.println("Hai aggiunto " + item.getName() + " al tuo inventario!");
                         getCurrentRoom().getItemsInRoom().remove(item);
@@ -249,7 +249,7 @@ public class Game {
                 printBagItems();
                 break;
             case "attack":
-                if (getCurrentAnimal().getLifepoints() == 0) {
+                if (getCurrentAnimal().getLifepoints() <= 0) {
                     System.out.println(getCurrentAnimal().getNome() + " è già morto");
                 } else {
                     getCurrentAnimal().decreaseLifepoints();
@@ -269,9 +269,13 @@ public class Game {
                         itemFound = true;
                         System.out.println("Hai usato " + item.getName());
                         if (item.getDamage() > 0) {
-                            getCurrentAnimal().decreaseLifepoints(item.getDamage());
-                            System.out.println(getCurrentAnimal().getNome() + " subisce " + item.getDamage() + " " +
-                                    "danno.");
+                            if (getCurrentAnimal().getLifepoints() <= 0) {
+                                System.out.println(getCurrentAnimal().getNome() + " è già morto");
+                            } else {
+                                getCurrentAnimal().decreaseLifepoints(item.getDamage());
+                                System.out.println(getCurrentAnimal().getNome() + " subisce " + item.getDamage() + " " +
+                                        "danno.");
+                            }
                         }
                         if (item.getHealing() > 0) {
                             player.setLifepoints(player.getLifepoints() + item.getHealing());
@@ -300,7 +304,7 @@ public class Game {
     }
 
     public static void combatti() {
-        if (getCurrentAnimal().getLifepoints() == 0) {
+        if (getCurrentAnimal().getLifepoints() <= 0) {
             System.out.println("Ora muoviti in un'altra stanza");
             return;
         }

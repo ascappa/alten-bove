@@ -57,7 +57,7 @@ public class Item {
         availableItems.add(new Item("spada", "Per tagliare le code dei tuoi avversari. Si rompe dopo 3 utilizzi.", 3,
                 3, 2, 0));
         availableItems.add(new Item("tirapugni", "Meglio di tirare un pugno a mani nude. Si rompe dopo 4 utilizzi.",
-                2, 4, 1.5, 0));
+                2, 40, 1.5, 0));
         availableItems.add(new Item("mela", "Una mela al giorno toglie il leone di torno.", 1, 1, 0, 1));
         availableItems.add(new Item("scudo", "Una protezione dalle belve più feroci. Si rompe dopo 2 utilizzi.", 2, 2
                 , 0, 0));
